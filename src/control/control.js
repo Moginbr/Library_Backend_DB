@@ -10,9 +10,22 @@ module.exports = {
             json.result.push({
                 livID: livros[i].livro_id,
                 nome: livros[i].nome,
-                edit: livro[i].editora
+                edit: livros[i].editora
             });
         }
-        res.json(json)
+        res.json(json);
+    },
+
+    procurarlivro: async(req, res) =>{
+        let json = {error:``, result:{}}; 
+
+        let livroid = req.params.livro_id;
+        let livro = await service_control.procurarlivro(livroid);
+
+        if(livro){
+            json.result = livro;
+        }
+        res.json(json);
     }
+
 }
